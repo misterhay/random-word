@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Grade 5 Word</title>
+</head>
+<body style="text-align:center;font-size:200%;font-family:Arial,Helvetica,sans-serif">
+<h1>Grade 5 Word Chooser</h1>
+<div id="buttonDiv">
+<button onclick="newWord()" id="newWordButton" style="font-size:150%">New Word</button>
+<br>
+<button onclick="restart()" id="restart" style="font-size:150%">Restart</button>
+<br>
+<button onclick="addPoint()" id="addPoint">+1 Point</button>
+<button onclick="subtractPoint()" id="subtractPoint">-1 Point</button>
+
+</div>
+<p> </p>
+<div id="wordDiv" style="font-size:300%">...</div>
+<p> </p>
+<div id="wordListDiv"></div>
+<p> </p>
+<div id="pointsDiv">Points: 0</div>
+
+
+<script>
+    document.getElementById("restart").style.display = "none"; // hide the restart button
+    var wordList = ["this","is","a","test","of","the","random","word","chooser","grade"];
+    document.getElementById("wordListDiv").innerText = wordList.length + " words left";
+    function newWord() {
+        var randomNumber = Math.floor(Math.random() * wordList.length);
+        var word = wordList[randomNumber];
+        document.getElementById("wordDiv").innerText = word;
+        wordList.splice(randomNumber, 1);
+        document.getElementById("wordListDiv").innerText = wordList.length + " words left";
+        if (wordList.length == 0) {
+            document.getElementById("newWordButton").disabled = true;
+            document.getElementById("restart").style.display = "inline"; // show the restart button
+        }
+    }
+
+    var points = 0;
+    function addPoint() {
+        points++;
+        document.getElementById("pointsDiv").innerText = "Points: " + points;
+    }
+    function subtractPoint() {
+        points--;
+        document.getElementById("pointsDiv").innerText = "Points: " + points;
+    }
+    function restart() {
+        location.reload();
+    }
+</script>
+
+</body>
+</html>
