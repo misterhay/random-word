@@ -8,10 +8,10 @@
 <div id="buttonDiv">
 <button onclick="newWord()" id="newWordButton" style="font-size:150%">New Word</button>
 <br>
-<button onclick="restart()" id="restart" style="font-size:150%">Restart</button>
+
 <br>
-<button onclick="addPoint()" id="addPoint">+1 Point</button>
-<button onclick="subtractPoint()" id="subtractPoint">-1 Point</button>
+<button onclick="addPoint()" id="addPoint" style="font-size:80%">+1 Point</button>
+<button onclick="subtractPoint()" id="subtractPoint" style="font-size:80%">-1 Point</button>
 
 </div>
 <p> </p>
@@ -20,11 +20,16 @@
 <div id="wordListDiv"></div>
 <p> </p>
 <div id="pointsDiv">Points: 0</div>
+<p> </p>
+<div id="restartButtonDiv">
+    <button onclick="restart()" id="restart">Restart</button>
+</div>
 
 
 <script>
-    document.getElementById("restart").style.display = "none"; // hide the restart button
-    var wordList = ["this","is","a","test","of","the","random","word","chooser","grade"];
+    var wordList = ["able", "ago", "among", "ball", "base", "became", "behind", "boat", "box", "bread", "bring", "brought", "building", "built", "cannot", "carefully", "check", "circle", "class", "clear", "common", "contain", "correct", "course", "dark", "decided", "deep", "done", "dry", "English", "equation", "explain", "fact", "feel", "filled", "finally", "fine", "fly", "force", "front", "full", "game", "gave", "government", "green", "half", "heat", "heavy", "hot", "inches", "include", "inside", "island", "known", "language", "less", "machine", "material", "minutes", "note", "nothing", "noun", "object", "ocean", "oh", "pair", "person", "plane", "power", "produce", "quickly", "ran", "rest", "road", "round", "rule", "scientists", "shape", "shown", "six", "size", "special", "stars", "stay", "stood", "street", "strong", "surface", "system", "ten", "though", "thousands", "understand", "verb", "wait", "warm", "week", "wheels", "yes", "yet"];
+
+    //document.getElementById("restart").style.display = "none"; // hide the restart button
     document.getElementById("wordListDiv").innerText = wordList.length + " words left";
     function newWord() {
         var randomNumber = Math.floor(Math.random() * wordList.length);
@@ -34,7 +39,8 @@
         document.getElementById("wordListDiv").innerText = wordList.length + " words left";
         if (wordList.length == 0) {
             document.getElementById("newWordButton").disabled = true;
-            document.getElementById("restart").style.display = "inline"; // show the restart button
+            //document.getElementById("restart").style.display = "inline"; // show the restart button
+            //  style="font-size:150%"
         }
     }
 
