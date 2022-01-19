@@ -6,14 +6,29 @@
 <p> </p>
 <div id="buttonDiv">
 <button onclick="newWord()" id="newWordButton" style="background-color:royalblue;color:floralwhite;font-size:150%;font-family:Cambria,Cochin,Georgia,Times,serif">New Word</button>
-<br><br>
-<button onclick="addPoint()" id="addPointButton" style="background-color:green;color:floralwhite;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">+1 Point</button>
-<button onclick="subtractPoint()" id="subtractPointButton" style="background-color:firebrick;color:floralwhite;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">-1 Point</button>
 </div>
 <p> </p>
 <div id="wordDiv" style="background-color:darkslategrey;color:darkslategrey;font-size:300%">...</div>
 <p> </p>
-<div id="pointsDiv">Points: 0</div>
+
+<table style="width:100%;margin-left:auto;margin-right:auto">
+<tr><th>Team 1</th><th>Team 2</th></tr>
+<tr>
+    <td>
+    <button onclick="addPoint1()" id="addPoint1Button" style="background-color:green;color:floralwhite;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">+1 Point</button>
+    <button onclick="subtractPoint1()" id="subtractPoint1Button" style="background-color:firebrick;color:floralwhite;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">-1 Point</button>
+    </td>
+    <td>
+    <button onclick="addPoint2()" id="addPoint2Button" style="background-color:green;color:floralwhite;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">+1 Point</button>
+    <button onclick="subtractPoint2()" id="subtractPoint2Button" style="background-color:firebrick;color:floralwhite;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">-1 Point</button>
+    </td>
+</tr>
+<tr>
+<td><div id="points1Div">Points: 0</div></td>
+<td><div id="points2Div">Points: 0</div></td>
+</tr>
+</table>
+
 <p> </p>
 <div id="wordListDiv" style="font-size:50%"></div>
 <div id="restartButtonDiv">
@@ -26,12 +41,16 @@
 <script>
     var parameters = new URLSearchParams(window.location.search);
     var set = parameters.get('set');
-    if (set.length > 0) {
+    if (set && set.length > 0) {
         document.getElementById("titleDiv").innerText = set;
     } else {
         document.getElementById("titleDiv").innerText = "Word Game";
     }
-    var wordList = parameters.get("words").split(",");
+    if (parameters.get("words")) {
+        var wordList = parameters.get("words").split(",");
+    } else {
+        var wordList = ["some","words","here"];
+    }
     document.getElementById("wordListDiv").innerText = wordList.length + " words left";
     function newWord() {
         document.getElementById("wordDiv").style.backgroundColor = "floralwhite";
@@ -43,22 +62,35 @@
         document.getElementById("wordListDiv").innerText = wordList.length + " words left";
         if (wordList.length == 0) {
             document.getElementById("newWordButton").disabled = true;
-            document.getElementById("addPointButton").disabled = true;
-            document.getElementById("subtractPointButton").disabled = true;
+            document.getElementById("addPoint1Button").disabled = true;
+            document.getElementById("subtractPoint1Button").disabled = true;
+            document.getElementById("addPoint2Button").disabled = true;
+            document.getElementById("subtractPoint2Button").disabled = true;
             document.getElementById("newWordButton").style.color = "darkslategrey";
             document.getElementById("newWordButton").style.backgroundColor = "darkslategrey";
         }
     }
-    var points = 0;
-    function addPoint() {
-        points++;
-        document.getElementById("pointsDiv").innerText = "Points: " + points;
-        newWord();
+    var points1 = 0;
+    var points2 = 0;
+    function addPoint1() {
+        points1++;
+        document.getElementById("points1Div").innerText = "Points: " + points1;
+        //newWord();
     }
-    function subtractPoint() {
-        points--;
-        document.getElementById("pointsDiv").innerText = "Points: " + points;
-        newWord();
+    function addPoint2() {
+        points2++;
+        document.getElementById("points2Div").innerText = "Points: " + points2;
+        //newWord();
+    }
+    function subtractPoint1() {
+        points1--;
+        document.getElementById("points1Div").innerText = "Points: " + points1;
+        //newWord();
+    }
+    function subtractPoint2() {
+        points2--;
+        document.getElementById("points2Div").innerText = "Points: " + points2;
+        //newWord();
     }
     function restart() {
         location.reload();
