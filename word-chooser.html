@@ -2,7 +2,7 @@
 <html lang="en">
 <head><title>Word Game</title></head>
 <body style="background-color:darkslategrey;color:floralwhite;text-align:center;font-size:200%;font-family:Cambria,Cochin,Georgia,Times,serif">
-<div style="font-size:200%">Word Game</div>
+<div style="font-size:200%" id="titleDiv">Word Game</div>
 <p> </p>
 <div id="buttonDiv">
 <button onclick="newWord()" id="newWordButton" style="background-color:royalblue;color:white;font-size:150%;font-family:Cambria,Cochin,Georgia,Times,serif">New Word</button>
@@ -21,9 +21,12 @@
 </div>
 
 <script>
-    // random-word/custom.html?words=testing,this,now
+    // random-word/word-chooser.html?words=testing,this,now
     var parameters = new URLSearchParams(window.location.search);
+    var set = parameters.get('set');
+    document.getElementById("titleDiv").innerHTML = "Word Game " + set;
     var wordList = parameters.get("words").split(",");
+
 
     document.getElementById("wordListDiv").innerText = wordList.length + " words left";
     function newWord() {
