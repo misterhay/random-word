@@ -20,17 +20,18 @@
     <button onclick="restart()" id="restart" style="background-color:royalblue;color:floralwhite;font-family:Cambria,Cochin,Georgia,Times,serif">Restart</button>
 </div>
 <div id="backLinkDiv">
-    <a href="../index.html" style="color:floralwhite;font-size:50%;font-family:Cambria,Cochin,Georgia,Times,serif">Back to Home</a>
+    <a href="index.html" style="color:floralwhite;font-size:50%;font-family:Cambria,Cochin,Georgia,Times,serif">Back to Home</a>
 </div>
 
 <script>
-    // random-word/word-chooser.html?words=testing,this,now
     var parameters = new URLSearchParams(window.location.search);
     var set = parameters.get('set');
-    document.getElementById("titleDiv").innerHTML = "Word Game " + set;
+    if (set.length > 0) {
+        document.getElementById("titleDiv").innerText = set;
+    } else {
+        document.getElementById("titleDiv").innerText = "Word Game";
+    }
     var wordList = parameters.get("words").split(",");
-
-
     document.getElementById("wordListDiv").innerText = wordList.length + " words left";
     function newWord() {
         document.getElementById("wordDiv").style.backgroundColor = "floralwhite";
@@ -48,7 +49,6 @@
             document.getElementById("newWordButton").style.backgroundColor = "darkslategrey";
         }
     }
-
     var points = 0;
     function addPoint() {
         points++;

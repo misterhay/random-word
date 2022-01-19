@@ -6,7 +6,7 @@
 <body style="background-color:darkslategrey;color:floralwhite;text-align:center;font-size:200%;font-family:Cambria,Cochin,Georgia,Times,serif">
 <h1>Custom Word Chooser</h1>
 <div id="entryDiv">
-     <form action="word-chooser.html" method="get">
+     <form id="form">
           <label for="words">Words</label>
           <br>
           <div style="font-size:50%">separated by commas</div>
@@ -17,28 +17,25 @@
           <input type="text" name="set" id="set" value="">
           <br>
           <input type="submit" value="Submit">
-          <li class="button">
-               <button type="submit">Create link to game</button>
-             </li>
+          
      </form>
-
-<div id="linkDiv"></div>
-
-
-</form>
-
+     <br>
+     <div id="linkDiv" style="color:floralwhite"></div>
 <script>
-     // input form
-
-     // set?
-
-     // strip any spaces
-
-     // build url  a href="word-chooser.html?set=Custom&words=action,actually,adjective
-
-     // append to linkDiv
-     document.getElementById("linkDiv").innerHTML = "<a href=\"word-chooser.html?set=" + document.getElementById("set").value + "&words=" + document.getElementById("words").value.replace(/\s/g, "") + "\">" + document.getElementById("set").value + "</a>";
+document.getElementById("words").focus();
+var element = document.getElementById("form")
+element.addEventListener("submit", function(event) {
+     event.preventDefault();
+     var words = document.getElementById("words").value.replace(/\s/g, '');
+     var set = document.getElementById("set").value;
+     var url = "word-chooser.html?words=" + words + "&set=" + set;
+     if (set.length > 0) {
+          var linkText = set;
+     } else {
+          var linkText = "Word Game";
+     }
+     document.getElementById("linkDiv").innerHTML = "<a style='color:floralwhite' href=" + url + ">"+linkText+"</a>";
+}, true);
 </script>
-
 </body>
 </html>
