@@ -1,30 +1,49 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head><title>Word Game 4</title></head>
-<body style="background-color:black;color:floralwhite;text-align:center;font-size:200%;font-family:Cambria,Cochin,Georgia,Times,serif">
-<div style="font-size:200%">Word Game 4</div>
+<body style="background-color:darkslategrey;color:floralwhite;text-align:center;font-size:200%;font-family:Cambria,Cochin,Georgia,Times,serif">
+<div style="font-size:200%" id="titleDiv">Word Game 4</div>
 <p> </p>
 <div id="buttonDiv">
-<button onclick="newWord()" id="newWordButton" style="background-color:royalblue;color:white;font-size:150%;font-family:Cambria,Cochin,Georgia,Times,serif">New Word</button>
-<br><br>
-<button onclick="addPoint()" id="addPoint" style="background-color:green;color:white;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">+1 Point</button>
-<button onclick="subtractPoint()" id="subtractPoint" style="background-color:firebrick;color:white;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">-1 Point</button>
+<button onclick="newWord()" id="newWordButton" style="background-color:royalblue;color:floralwhite;font-size:150%;font-family:Cambria,Cochin,Georgia,Times,serif">New Word</button>
 </div>
 <p> </p>
-<div id="wordDiv" style="background-color:black;color:black;font-size:300%">...</div>
+<div id="wordDiv" style="background-color:darkslategrey;color:darkslategrey;font-size:300%">...</div>
 <p> </p>
-<div id="pointsDiv">Points: 0</div>
+
+<table style="width:100%;margin-left:auto;margin-right:auto">
+<tr><th>Team 1</th><th>Team 2</th></tr>
+<tr>
+    <td>
+    <button onclick="addPoint1()" id="addPoint1Button" style="background-color:green;color:floralwhite;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">+1 Point</button>
+    <button onclick="subtractPoint1()" id="subtractPoint1Button" style="background-color:firebrick;color:floralwhite;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">-1 Point</button>
+    </td>
+    <td>
+    <button onclick="addPoint2()" id="addPoint2Button" style="background-color:green;color:floralwhite;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">+1 Point</button>
+    <button onclick="subtractPoint2()" id="subtractPoint2Button" style="background-color:firebrick;color:floralwhite;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">-1 Point</button>
+    </td>
+</tr>
+<tr>
+<td><div id="points1Div">Points: 0</div></td>
+<td><div id="points2Div">Points: 0</div></td>
+</tr>
+</table>
+
 <p> </p>
 <div id="wordListDiv" style="font-size:50%"></div>
 <div id="restartButtonDiv">
-    <button onclick="restart()" id="restart" style="background-color:royalblue;color:white;font-family:Cambria,Cochin,Georgia,Times,serif">Restart</button>
+    <button onclick="restart()" id="restart" style="background-color:royalblue;color:floralwhite;font-family:Cambria,Cochin,Georgia,Times,serif">Restart</button>
+</div>
+<div id="backLinkDiv">
+    <a href="index.html" style="color:floralwhite;font-size:50%;font-family:Cambria,Cochin,Georgia,Times,serif">Back to Home</a>
 </div>
 
 <script>
-    var wordList = ["across","against","area","become","best","better","birds","black","body","certain","cold","color","complete","covered","cried","didnâ€™t","dog","door","draw","during","early","easy","ever","fall","farm","fast","field","figure","fire","fish","five","friends","ground","happened","heard","himself","hold","horse","hours","however","hundred","Iâ€™ll","king","knew","listen","low","map","mark","measure","money","morning","music","north","notice","numeral","order","passed","pattern","piece","plan","problem","products","pulled","questions","reached","red","remember","rock","room","seen","several","ship","short","since","sing","slowly","south","space","stand","step","sun","sure","table","today","told","top","toward","town","travel","true","unit","upon","usually","voice","vowel","war","waves","whole","wind","wood"];
+    var wordList = ['across', 'against', 'area', 'become', 'best', 'better', 'birds', 'black', 'body', 'certain', 'cold', 'color', 'complete', 'covered', 'cried', 'didn’t', 'dog', 'door', 'draw', 'during', 'early', 'easy', 'ever', 'fall', 'farm', 'fast', 'field', 'figure', 'fire', 'fish', 'five', 'friends', 'ground', 'happened', 'heard', 'himself', 'hold', 'horse', 'hours', 'however', 'hundred', 'I’ll', 'king', 'knew', 'listen', 'low', 'map', 'mark', 'measure', 'money', 'morning', 'music', 'north', 'notice', 'numeral', 'order', 'passed', 'pattern', 'piece', 'plan', 'problem', 'products', 'pulled', 'questions', 'reached', 'red', 'remember', 'rock', 'room', 'seen', 'several', 'ship', 'short', 'since', 'sing', 'slowly', 'south', 'space', 'stand', 'step', 'sun', 'sure', 'table', 'today', 'told', 'top', 'toward', 'town', 'travel', 'true', 'unit', 'upon', 'usually', 'voice', 'vowel', 'war', 'waves', 'whole', 'wind', 'wood'];
     document.getElementById("wordListDiv").innerText = wordList.length + " words left";
     function newWord() {
-        document.getElementById("wordDiv").style.backgroundColor = "white";
+        document.getElementById("wordDiv").style.backgroundColor = "floralwhite";
         document.getElementById("wordDiv").style.color = "royalblue";
         var randomNumber = Math.floor(Math.random() * wordList.length);
         var word = wordList[randomNumber];
@@ -33,23 +52,35 @@
         document.getElementById("wordListDiv").innerText = wordList.length + " words left";
         if (wordList.length == 0) {
             document.getElementById("newWordButton").disabled = true;
-            document.getElementById("wordDiv").style.backgroundColor = "black";
-            document.getElementById("wordDiv").style.color = "black";
-            document.getElementById("newWordButton").style.color = "black";
-            document.getElementById("newWordButton").style.backgroundColor = "black";
+            document.getElementById("addPoint1Button").disabled = true;
+            document.getElementById("subtractPoint1Button").disabled = true;
+            document.getElementById("addPoint2Button").disabled = true;
+            document.getElementById("subtractPoint2Button").disabled = true;
+            document.getElementById("newWordButton").style.color = "darkslategrey";
+            document.getElementById("newWordButton").style.backgroundColor = "darkslategrey";
         }
     }
-
-    var points = 0;
-    function addPoint() {
-        points++;
-        document.getElementById("pointsDiv").innerText = "Points: " + points;
-        newWord();
+    var points1 = 0;
+    var points2 = 0;
+    function addPoint1() {
+        points1++;
+        document.getElementById("points1Div").innerText = "Points: " + points1;
+        //newWord();
     }
-    function subtractPoint() {
-        points--;
-        document.getElementById("pointsDiv").innerText = "Points: " + points;
-        newWord();
+    function addPoint2() {
+        points2++;
+        document.getElementById("points2Div").innerText = "Points: " + points2;
+        //newWord();
+    }
+    function subtractPoint1() {
+        points1--;
+        document.getElementById("points1Div").innerText = "Points: " + points1;
+        //newWord();
+    }
+    function subtractPoint2() {
+        points2--;
+        document.getElementById("points2Div").innerText = "Points: " + points2;
+        //newWord();
     }
     function restart() {
         location.reload();
