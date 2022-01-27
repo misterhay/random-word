@@ -7,6 +7,7 @@
 <div id="buttonDiv">
 <button onclick="newWord()" id="newWordButton" style="background-color:royalblue;color:floralwhite;font-size:150%;font-family:Cambria,Cochin,Georgia,Times,serif">New Word</button>
 </div>
+<div id="wordListDiv" style="font-size:50%"></div>
 <p> </p>
 <div id="wordDiv" style="background-color:darkslategrey;color:darkslategrey;font-size:300%">...</div>
 <p> </p>
@@ -15,12 +16,12 @@
 <tr><th>Team 1</th><th>Team 2</th></tr>
 <tr>
     <td>
-    <button onclick="addPoint1()" id="addPoint1Button" style="background-color:green;color:floralwhite;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">+1 Point</button>
     <button onclick="subtractPoint1()" id="subtractPoint1Button" style="background-color:firebrick;color:floralwhite;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">-1 Point</button>
+    <button onclick="addPoint1()" id="addPoint1Button" style="background-color:green;color:floralwhite;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">+1 Point</button>
     </td>
     <td>
-    <button onclick="addPoint2()" id="addPoint2Button" style="background-color:green;color:floralwhite;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">+1 Point</button>
     <button onclick="subtractPoint2()" id="subtractPoint2Button" style="background-color:firebrick;color:floralwhite;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">-1 Point</button>
+    <button onclick="addPoint2()" id="addPoint2Button" style="background-color:green;color:floralwhite;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">+1 Point</button>
     </td>
 </tr>
 <tr>
@@ -30,7 +31,16 @@
 </table>
 
 <p> </p>
-<div id="wordListDiv" style="font-size:50%"></div>
+
+<div id="countdownButtonsDiv">
+    <button onclick="stopTimer()" id="stopTimer" style="background-color:darkred;color:floralwhite;font-size:60%;font-family:Cambria,Cochin,Georgia,Times,serif">Stop</button>
+    <button onclick="startTimer()" id="startTimer" style="background-color:darkgreen;color:floralwhite;font-size:60%;font-family:Cambria,Cochin,Georgia,Times,serif">Start</button>
+</div>
+<div id="countdownDiv" style="color:darkslategrey;font-size:200%">...</div>
+
+
+<p></p>
+
 <div id="restartButtonDiv">
     <button onclick="restart()" id="restart" style="background-color:royalblue;color:floralwhite;font-family:Cambria,Cochin,Georgia,Times,serif">Restart</button>
 </div>
@@ -92,6 +102,34 @@
         document.getElementById("points2Div").innerText = "Points: " + points2;
         //newWord();
     }
+    function startTimer() {
+        var time = 90;
+        document.getElementById("newWordButton").disabled = false;
+        var countdown = setInterval(function() {
+            document.getElementById("countdownDiv").style.color = "honeydew";
+            document.getElementById("countdownDiv").innerText = time;
+            time--;
+            if (time < 0) {
+                clearInterval(countdown);
+                //document.getElementById("countdownDiv").innerText = "Out of Time";
+                document.getElementById("countdownDiv").style.color = "darkred";
+                document.getElementById("stopTimer").disabled = true;
+                document.getElementById("newWordButton").disabled = true;
+            }
+        },1000);
+    }
+
+    function stopTimer() {
+        document.getElementById("stopTimer").disabled = true;
+        //document.getElementById("newWordButton").disabled = true;
+        //document.getElementById("addPoint1Button").disabled = true;
+        //document.getElementById("subtractPoint1Button").disabled = true;
+        //document.getElementById("addPoint2Button").disabled = true;
+        //document.getElementById("subtractPoint2Button").disabled = true;
+        //document.getElementById("newWordButton").style.color = "darkslategrey";
+        //document.getElementById("newWordButton").style.backgroundColor = "darkslategrey";
+    }
+
     function restart() {
         location.reload();
     }
