@@ -33,16 +33,14 @@
 <p> </p>
 
 <div id="countdownButtonsDiv">
-    <button onclick="stopTimer()" id="stopTimer" style="background-color:darkred;color:floralwhite;font-size:60%;font-family:Cambria,Cochin,Georgia,Times,serif">Stop</button>
-    <button onclick="startTimer()" id="startTimer" style="background-color:darkgreen;color:floralwhite;font-size:60%;font-family:Cambria,Cochin,Georgia,Times,serif">Start</button>
+    <button onclick="startTimer()" id="startTimer" style="background-color:darkgreen;color:floralwhite;font-size:60%;font-family:Cambria,Cochin,Georgia,Times,serif">Start Timer</button>
 </div>
-<div id="countdownDiv" style="color:darkslategrey;font-size:200%">...</div>
-
+<div id="countdownDiv" style="color:honeydew;font-size:200%"></div>
 
 <p></p>
 
 <div id="restartButtonDiv">
-    <button onclick="restart()" id="restart" style="background-color:royalblue;color:floralwhite;font-family:Cambria,Cochin,Georgia,Times,serif">Restart</button>
+    <button onclick="restart()" id="restart" style="background-color:darkred;color:floralwhite;font-family:Cambria,Cochin,Georgia,Times,serif">Restart</button>
 </div>
 <div id="backLinkDiv">
     <a href="index.html" style="color:floralwhite;font-size:50%;font-family:Cambria,Cochin,Georgia,Times,serif">Back to Home</a>
@@ -61,6 +59,13 @@
     } else {
         var wordList = ["some","words","here"];
     }
+    if (parameters.get("time")) {
+        var timerLength = parameters.get("time");
+    } else {
+        var timerLength = 90;
+    }
+    document.getElementById("countdownDiv").innerText = timerLength;
+
     document.getElementById("wordListDiv").innerText = wordList.length + " words left";
     function newWord() {
         document.getElementById("wordDiv").style.backgroundColor = "floralwhite";
@@ -85,25 +90,25 @@
     function addPoint1() {
         points1++;
         document.getElementById("points1Div").innerText = "Points: " + points1;
-        //newWord();
+        newWord();
     }
     function addPoint2() {
         points2++;
         document.getElementById("points2Div").innerText = "Points: " + points2;
-        //newWord();
+        newWord();
     }
     function subtractPoint1() {
         points1--;
         document.getElementById("points1Div").innerText = "Points: " + points1;
-        //newWord();
+        newWord();
     }
     function subtractPoint2() {
         points2--;
         document.getElementById("points2Div").innerText = "Points: " + points2;
-        //newWord();
+        newWord();
     }
     function startTimer() {
-        var time = 90;
+        var time = timerLength;
         document.getElementById("newWordButton").disabled = false;
         var countdown = setInterval(function() {
             document.getElementById("countdownDiv").style.color = "honeydew";
@@ -111,23 +116,11 @@
             time--;
             if (time < 0) {
                 clearInterval(countdown);
-                //document.getElementById("countdownDiv").innerText = "Out of Time";
                 document.getElementById("countdownDiv").style.color = "darkred";
-                document.getElementById("stopTimer").disabled = true;
                 document.getElementById("newWordButton").disabled = true;
+                document.getElementById("countdownDiv").innerText = timerLength;
             }
         },1000);
-    }
-
-    function stopTimer() {
-        document.getElementById("stopTimer").disabled = true;
-        //document.getElementById("newWordButton").disabled = true;
-        //document.getElementById("addPoint1Button").disabled = true;
-        //document.getElementById("subtractPoint1Button").disabled = true;
-        //document.getElementById("addPoint2Button").disabled = true;
-        //document.getElementById("subtractPoint2Button").disabled = true;
-        //document.getElementById("newWordButton").style.color = "darkslategrey";
-        //document.getElementById("newWordButton").style.backgroundColor = "darkslategrey";
     }
 
     function restart() {
