@@ -105,6 +105,7 @@ html_template = '''
     }}
     function startTimer() {{
         var time = timerLength;
+        document.getElementById("startTimer").disabled = true;
         document.getElementById("newWordButton").disabled = false;
         var countdown = setInterval(function() {{
             document.getElementById("countdownDiv").style.color = "honeydew";
@@ -115,6 +116,7 @@ html_template = '''
                 document.getElementById("countdownDiv").style.color = "darkred";
                 document.getElementById("newWordButton").disabled = true;
                 document.getElementById("countdownDiv").innerText = timerLength;
+                document.getElementById("startTimer").disabled = false;
             }}
         }},1000);
     }}
