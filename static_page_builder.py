@@ -19,6 +19,7 @@ html_template = '''
 <div id="buttonDiv">
 <button onclick="newWord()" id="newWordButton" style="background-color:royalblue;color:floralwhite;font-size:150%;font-family:Cambria,Cochin,Georgia,Times,serif">New Word</button>
 </div>
+<div id="wordListDiv" style="font-size:50%"></div>
 <p> </p>
 <div id="wordDiv" style="background-color:darkslategrey;color:darkslategrey;font-size:300%">...</div>
 <p> </p>
@@ -27,12 +28,12 @@ html_template = '''
 <tr><th>Team 1</th><th>Team 2</th></tr>
 <tr>
     <td>
-    <button onclick="addPoint1()" id="addPoint1Button" style="background-color:green;color:floralwhite;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">+1 Point</button>
     <button onclick="subtractPoint1()" id="subtractPoint1Button" style="background-color:firebrick;color:floralwhite;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">-1 Point</button>
+    <button onclick="addPoint1()" id="addPoint1Button" style="background-color:green;color:floralwhite;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">+1 Point</button>
     </td>
     <td>
-    <button onclick="addPoint2()" id="addPoint2Button" style="background-color:green;color:floralwhite;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">+1 Point</button>
     <button onclick="subtractPoint2()" id="subtractPoint2Button" style="background-color:firebrick;color:floralwhite;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">-1 Point</button>
+    <button onclick="addPoint2()" id="addPoint2Button" style="background-color:green;color:floralwhite;font-size:80%;font-family:Cambria,Cochin,Georgia,Times,serif">+1 Point</button>
     </td>
 </tr>
 <tr>
@@ -42,9 +43,16 @@ html_template = '''
 </table>
 
 <p> </p>
-<div id="wordListDiv" style="font-size:50%"></div>
+
+<div id="countdownButtonsDiv">
+    <button onclick="startTimer()" id="startTimer" style="background-color:darkgreen;color:floralwhite;font-size:60%;font-family:Cambria,Cochin,Georgia,Times,serif">Start Timer</button>
+</div>
+<div id="countdownDiv" style="color:honeydew;font-size:200%"></div>
+
+<p></p>
+
 <div id="restartButtonDiv">
-    <button onclick="restart()" id="restart" style="background-color:royalblue;color:floralwhite;font-family:Cambria,Cochin,Georgia,Times,serif">Restart</button>
+    <button onclick="restart()" id="restart" style="background-color:darkred;color:floralwhite;font-family:Cambria,Cochin,Georgia,Times,serif">Restart</button>
 </div>
 <div id="backLinkDiv">
     <a href="index.html" style="color:floralwhite;font-size:50%;font-family:Cambria,Cochin,Georgia,Times,serif">Back to Home</a>
@@ -52,6 +60,8 @@ html_template = '''
 
 <script>
     var wordList = {list};
+    var timerLength = 90;
+    document.getElementById("countdownDiv").innerText = timerLength;
     document.getElementById("wordListDiv").innerText = wordList.length + " words left";
     function newWord() {{
         document.getElementById("wordDiv").style.backgroundColor = "floralwhite";
@@ -76,23 +86,39 @@ html_template = '''
     function addPoint1() {{
         points1++;
         document.getElementById("points1Div").innerText = "Points: " + points1;
-        //newWord();
+        newWord();
     }}
     function addPoint2() {{
         points2++;
         document.getElementById("points2Div").innerText = "Points: " + points2;
-        //newWord();
+        newWord();
     }}
     function subtractPoint1() {{
         points1--;
         document.getElementById("points1Div").innerText = "Points: " + points1;
-        //newWord();
+        newWord();
     }}
     function subtractPoint2() {{
         points2--;
         document.getElementById("points2Div").innerText = "Points: " + points2;
-        //newWord();
+        newWord();
     }}
+    function startTimer() {{
+        var time = timerLength;
+        document.getElementById("newWordButton").disabled = false;
+        var countdown = setInterval(function() {{
+            document.getElementById("countdownDiv").style.color = "honeydew";
+            document.getElementById("countdownDiv").innerText = time;
+            time--;
+            if (time < 0) {{
+                clearInterval(countdown);
+                document.getElementById("countdownDiv").style.color = "darkred";
+                document.getElementById("newWordButton").disabled = true;
+                document.getElementById("countdownDiv").innerText = timerLength;
+            }}
+        }},1000);
+    }}
+
     function restart() {{
         location.reload();
     }}
