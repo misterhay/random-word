@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Story Plot Generator</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-34211446-1"></script>
+     <script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-34211446-1');</script>
+</head>
+<body style="background-color:darkslategrey;color:floralwhite;text-align:center;font-size:200%;font-family:Cambria,Cochin,Georgia,Times,serif">
+<h1>Story Plot Generator</h1>
+<div id="entryDiv">
+     <form id="form">
+          <label for="genreLabel">Genre</label>
+          <br>
+          <textarea id="genreField" name="genre"></textarea>
+          <br><br>
+          <label for="adjectiveLabel">Adjective</label>
+          <br>
+          <textarea id="adjectiveField" name="adjective"></textarea>
+          <br><br>
+          <label for="activityLabel">Activity</label>
+          <br>
+          <textarea id="activityField" name="adjective"></textarea>
+          <br><br>
+          <label for="locationLabel">Location</label>
+          <br>
+          <textarea id="locationField" name="location"></textarea>
+          <br><br>          
+          <input type="submit" value="Submit">
+     </form>
+     <br>
+     <div id="linkDiv" style="color:floralwhite"></div>
+<script>
+document.getElementById("words").focus();
+var element = document.getElementById("form");
+element.addEventListener("submit", function(event) {
+     event.preventDefault();
+     var words = document.getElementById("words").value.replace(/\s/g, '');
+     var set = document.getElementById("set").value.replace(/\s/g, '%20');
+     var url = "word-chooser.html?words=" + words + "&set=" + set + "&time=" + document.getElementById("time").value;
+     if (set.length > 0) {
+          var linkText = set.replace(/%20/g, ' ');
+     } else {
+          var linkText = "Word Game";
+     }
+     document.getElementById("linkDiv").innerHTML = "<a style='color:floralwhite' href=" + url + ">"+linkText+"</a>";
+}, true);
+</script>
+</body>
+</html>
