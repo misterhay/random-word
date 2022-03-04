@@ -7,42 +7,72 @@
 </head>
 <body style="background-color:darkslategrey;color:floralwhite;text-align:center;font-size:200%;font-family:Cambria,Cochin,Georgia,Times,serif">
 <h1>Story Plot Generator</h1>
+<div id="plotDiv" style="color:darkslategrey">...</div>
 <div id="entryDiv">
      <form id="form">
+          <input type="submit" value="New Story Prompt">
+          <br><br>
           <label for="genreLabel">Genre</label>
           <br>
-          <textarea id="genreField" name="genre"></textarea>
+          <textarea id="genreField" name="genre">science fiction, fantasy, mystery, drama, comedy, action,</textarea>
           <br><br>
           <label for="adjectiveLabel">Adjective</label>
           <br>
-          <textarea id="adjectiveField" name="adjective"></textarea>
+          <textarea id="adjectiveField" name="adjective">happy, tall, funny, young, clumsy, friendly, honest, frightened,</textarea>
           <br><br>
-          <label for="activityLabel">Activity</label>
+          <label for="characterLabel">Character</label>
           <br>
-          <textarea id="activityField" name="adjective"></textarea>
+          <textarea id="characterField" name="character">teacher, painter, zookeeper, inventor, doctor, author, truck driver, cashier,</textarea>
           <br><br>
           <label for="locationLabel">Location</label>
           <br>
-          <textarea id="locationField" name="location"></textarea>
-          <br><br>          
-          <input type="submit" value="Submit">
+          <textarea id="locationField" name="location">in the desert, on the moon, in a forest, in an office building, underwater, on an island, at an elementary school, in a church, at the beach, on an airplane,</textarea>
+          <br><br>
+          <label for="activityLabel">Activity</label>
+          <br>
+          <textarea id="activityField" name="activity">teaching kindergarten, saving the world, competing in a reality TV show, playing in a rock band, discovering buried treasure, developing super powers, rescuing lost puppies, becoming the mayor,</textarea>
      </form>
-     <br>
-     <div id="linkDiv" style="color:floralwhite"></div>
 <script>
-document.getElementById("words").focus();
+if (self.innerWidth) {var w = self.innerWidth;}
+if (document.documentElement && document.documentElement.clientWidth) {var w = document.documentElement.clientWidth;}
+if (document.body) {var w = document.body.clientWidth;}
+if (w > 800) {var fieldWidth = 100;}
+else if (w < 450) {var fieldWidth = 20;}
+else {var fieldWidth = 50;}
+document.getElementById("genreField").cols = fieldWidth;
+document.getElementById("adjectiveField").cols = fieldWidth;
+document.getElementById("characterField").cols = fieldWidth;
+document.getElementById("locationField").cols = fieldWidth;
+document.getElementById("activityField").cols = fieldWidth;
+
 var element = document.getElementById("form");
 element.addEventListener("submit", function(event) {
      event.preventDefault();
-     var words = document.getElementById("words").value.replace(/\s/g, '');
-     var set = document.getElementById("set").value.replace(/\s/g, '%20');
-     var url = "word-chooser.html?words=" + words + "&set=" + set + "&time=" + document.getElementById("time").value;
-     if (set.length > 0) {
-          var linkText = set.replace(/%20/g, ' ');
+     var genres = document.getElementById("genreField").value.replace(/(\r\n|\r|\n)/g, ',').split(',');
+     var genre = genres[Math.floor(Math.random() * genres.length)].trim();
+     if (genre[0].match(/[aeiou]/gi)) {
+          var firstWord = 'An';
      } else {
-          var linkText = "Word Game";
+          var firstWord = 'A';
      }
-     document.getElementById("linkDiv").innerHTML = "<a style='color:floralwhite' href=" + url + ">"+linkText+"</a>";
+     var adjectives = document.getElementById("adjectiveField").value.replace(/(\r\n|\r|\n)/g, ',').split(',');
+     var adjective = adjectives[Math.floor(Math.random() * adjectives.length)].trim();
+     if (adjective[0].match(/[aeiou]/gi)) {
+          var secondWord = 'an';
+     } else {
+          var secondWord = 'a';
+     }
+     var characters = document.getElementById("characterField").value.replace(/(\r\n|\r|\n)/g, ',').split(',');
+     var character = characters[Math.floor(Math.random() * characters.length)].trim();
+     var locations = document.getElementById("locationField").value.replace(/(\r\n|\r|\n)/g, ',').split(',');
+     var location = locations[Math.floor(Math.random() * locations.length)].trim();
+     var activities = document.getElementById("activityField").value.replace(/(\r\n|\r|\n)/g, ',').split(',');
+     var activity = activities[Math.floor(Math.random() * activities.length)].trim();
+
+     var plot = [firstWord,genre,"story about",secondWord,adjective,character,location,activity].join(' ').trim()+".";
+     document.getElementById("plotDiv").innerText = plot;
+     document.getElementById("plotDiv").style.backgroundColor = "floralwhite";
+     document.getElementById("plotDiv").style.color = "darkslategrey";
 }, true);
 </script>
 </body>
