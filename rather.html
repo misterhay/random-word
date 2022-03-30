@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head><title>Would You Rather</title></head>
+<body style="background-color:darkslategrey;color:floralwhite;text-align:center;font-size:200%;font-family:Cambria,Cochin,Georgia,Times,serif">
+<div style="font-size:200%" id="titleDiv">Would you rather</div>
+<p> </p>
+<div id="buttonDiv">
+<button onclick="newWord()" id="newWordButton" style="background-color:royalblue;color:floralwhite;font-size:150%;font-family:Cambria,Cochin,Georgia,Times,serif">New Word</button>
+</div>
+<div id="wordListDiv" style="font-size:50%"></div>
+<p> </p>
+<div id="wordDiv" style="background-color:darkslategrey;color:darkslategrey;font-size:300%">...</div>
+<p> </p>
+
+<div id="restartButtonDiv">
+    <button onclick="restart()" id="restart" style="background-color:darkred;color:floralwhite;font-family:Cambria,Cochin,Georgia,Times,serif">Restart</button>
+</div>
+<div id="backLinkDiv">
+    <a href="index.html" style="color:floralwhite;font-size:50%;font-family:Cambria,Cochin,Georgia,Times,serif">Back to Home</a>
+</div>
+
+<script>
+    var wordList = ['a', 'about', 'all', 'am', 'an', 'and', 'are', 'as', 'at', 'be', 'been', 'but', 'by', 'called', 'can', 'come', 'could', 'day', 'did', 'do', 'down', 'each', 'find', 'first', 'for', 'from', 'get', 'go', 'had', 'has', 'have', 'he', 'her', 'him', 'his', 'how', 'I', 'if', 'in', 'into', 'is', 'it', 'its', 'like', 'long', 'look', 'made', 'make', 'many', 'may', 'more', 'my', 'no', 'not', 'now', 'number', 'of', 'on', 'one', 'or', 'other', 'out', 'part', 'people', 'said', 'see', 'she', 'so', 'some', 'than', 'that', 'the', 'their', 'them', 'then', 'there', 'these', 'they', 'this', 'time', 'to', 'two', 'up', 'use', 'was', 'water', 'way', 'we', 'were', 'what', 'when', 'which', 'who', 'will', 'with', 'words', 'would', 'write', 'you', 'your'];
+    var timerLength = 90;
+    document.getElementById("countdownDiv").innerText = timerLength;
+    document.getElementById("wordListDiv").innerText = wordList.length + " words left";
+    function newWord() {
+        document.getElementById("wordDiv").style.backgroundColor = "floralwhite";
+        document.getElementById("wordDiv").style.color = "royalblue";
+        var randomNumber = Math.floor(Math.random() * wordList.length);
+        var word = wordList[randomNumber];
+        document.getElementById("wordDiv").innerText = word;
+        wordList.splice(randomNumber,1);
+        document.getElementById("wordListDiv").innerText = wordList.length + " words left";
+        if (wordList.length == 0) {
+            document.getElementById("newWordButton").disabled = true;
+            document.getElementById("addPoint1Button").disabled = true;
+            document.getElementById("subtractPoint1Button").disabled = true;
+            document.getElementById("addPoint2Button").disabled = true;
+            document.getElementById("subtractPoint2Button").disabled = true;
+            document.getElementById("newWordButton").style.color = "darkslategrey";
+            document.getElementById("newWordButton").style.backgroundColor = "darkslategrey";
+        }
+    }
+    var points1 = 0;
+    var points2 = 0;
+    function addPoint1() {
+        points1++;
+        document.getElementById("points1Div").innerText = "Points: " + points1;
+        newWord();
+    }
+    function addPoint2() {
+        points2++;
+        document.getElementById("points2Div").innerText = "Points: " + points2;
+        newWord();
+    }
+    function subtractPoint1() {
+        points1--;
+        document.getElementById("points1Div").innerText = "Points: " + points1;
+        newWord();
+    }
+    function subtractPoint2() {
+        points2--;
+        document.getElementById("points2Div").innerText = "Points: " + points2;
+        newWord();
+    }
+    function startTimer() {
+        var time = timerLength;
+        document.getElementById("startTimer").disabled = true;
+        document.getElementById("newWordButton").disabled = false;
+        var countdown = setInterval(function() {
+            document.getElementById("countdownDiv").style.color = "honeydew";
+            document.getElementById("countdownDiv").innerText = time;
+            time--;
+            if (time < 0) {
+                clearInterval(countdown);
+                document.getElementById("countdownDiv").style.color = "darkred";
+                document.getElementById("newWordButton").disabled = true;
+                document.getElementById("countdownDiv").innerText = timerLength;
+                document.getElementById("startTimer").disabled = false;
+            }
+        },1000);
+    }
+
+    function restart() {
+        location.reload();
+    }
+</script>
+
+</body>
+</html>
