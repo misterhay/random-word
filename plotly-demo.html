@@ -1,0 +1,34 @@
+<html>
+<head><script src='https://cdn.plot.ly/plotly-2.9.0.min.js'></script></head>
+
+<body>
+<div id='chartDiv'></div>
+
+<script>
+var tem = {
+x: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+y: [20, 14, 23, 19, 21, 25, 22, 18, 15, 23, 19, 21],
+name: 'Temperature',
+type: 'lines',
+line: {color: 'red'}
+};
+
+var ppt = {
+x: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+y: [12, 18, 23, 19, 21, 25, 22, 18, 15, 23, 19, 21],
+name: 'Precipitation',
+type: 'bar',
+marker: {color: 'blue'}
+};
+
+var data = [tem, ppt];
+var layout = {
+    title: 'Weather Data for Edmonton, AB',
+    xaxis: {title: 'Month'},
+    yaxis: {title: 'Amount'}
+};
+Plotly.newPlot('chartDiv', data, layout);
+
+</script>
+</body>
+</html>
