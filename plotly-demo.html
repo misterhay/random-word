@@ -1,11 +1,35 @@
 <html>
 <head><script src='https://cdn.plot.ly/plotly-2.9.0.min.js'></script></head>
-
 <body>
-<div id='chartDiv'></div>
+<div id="testing">test</div>
+
+<div id="formDiv">
+    <form id="form">
+        <label><i>x</i> values</label>
+        <br>
+        <div style="font-size:50%">separated by commas</div>
+        <textarea id="x" name="x"></textarea>
+        <br><br>
+        <label><i>y</i> values</label>
+        <br>
+        <div style="font-size:50%">separated by commas</div>
+        <textarea id="y" name="y"></textarea>
+        <br><br>
+        <input type="submit" value="Submit">
+   </form>
+</div>
+<div id="chartDiv"></div>
 
 <script>
-var tem = {
+var element = document.getElementById("form");
+element.addEventListener("submit", function(event) {
+    event.preventDefault();
+    var xvalues = document.getElementById("x").value.replace(/,\s/g, ',');
+    var yvalues = document.getElementById("y").value.replace(/,\s/g, ',');
+    document.getElementById("testing").innerText = xvalues+yvalues;
+}, true);
+
+var temperature = {
 x: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 y: [20, 14, 23, 19, 21, 25, 22, 18, 15, 23, 19, 21],
 name: 'Temperature',
@@ -13,7 +37,7 @@ type: 'lines',
 line: {color: 'red'}
 };
 
-var ppt = {
+var precipitation = {
 x: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 y: [12, 18, 23, 19, 21, 25, 22, 18, 15, 23, 19, 21],
 name: 'Precipitation',
@@ -21,7 +45,7 @@ type: 'bar',
 marker: {color: 'blue'}
 };
 
-var data = [tem, ppt];
+var data = [temperature, precipitation];
 var layout = {
     title: 'Weather Data for Edmonton, AB',
     xaxis: {title: 'Month'},
