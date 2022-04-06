@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+    <title>Text to Speech</title>
+</head>
+<body>
+<div id="speak"></div>
+<h2>JavaScript Text to Speech</h2>
+		<div><input type="text" id="text-to-speech" placeholder="Enter text to speak..."/></div>
+        <div><button type="button" onclick="textToAudio()">Speak</button></div>
+        <br/>
+        <div><small><b>NOTE:</b> Enter text and click on speak button.</small></div>
+
+<script>
+function textToAudio() {
+    let msg = document.getElementById("text-to-speech").value;
+    let speech = new SpeechSynthesisUtterance();
+    speech.lang = "en-US";
+    speech.text = msg;
+    speech.volume = 1;
+    speech.rate = 1;
+    speech.pitch = 1;
+    window.speechSynthesis.speak(speech);
+}
+
+if ('speechSynthesis' in window) {
+    // Speech Synthesis supported
+    //var msg = new SpeechSynthesisUtterance();
+    //msg.text = "Good Morning";
+    //window.speechSynthesis.speak(msg);
+
+    let speech = new SpeechSynthesisUtterance();
+
+    speech.lang = "en-US";
+    speech.text = msg;
+    speech.volume = 1;
+    speech.rate = 1;
+    speech.pitch = 1;                
+
+    window.speechSynthesis.speak(speech);
+
+} else {
+    // Speech Synthesis Not Supported
+    alert("Sorry, your browser doesn't support text to speech!");
+    }
+</script>   
+</body>
+</html>
